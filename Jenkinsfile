@@ -2,37 +2,36 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'
         jdk 'JDK17'
+        maven 'MAVEN'
     }
 
     stages {
-
         stage('Build') {
             steps {
                 echo 'Compilation du projet Calculatrice...'
-                sh 'mvn clean compile'
+                bat 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Exécution des tests unitaires...'
-                sh 'mvn test'
+                echo 'Exécution des tests...'
+                bat 'mvn test'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Déploiement (simulation)...'
-                sh 'echo Application Calculatrice déployée'
+                echo 'Packaging de l’application...'
+                bat 'mvn package'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline Jenkins exécuté avec succès '
+            echo 'Pipeline exécuté avec succès '
         }
         failure {
             echo 'Échec du pipeline '
